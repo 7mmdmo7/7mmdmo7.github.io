@@ -2,7 +2,7 @@
     "name": "WeeWee PWA",
     "short_name": "WeeWee PWA",
     "start_url": "./index.html",
-    "display": "standalone",
+    "display": "fullscreen",
     "icons": [{
         "src": "/assets/logo2-48.png",
         "sizes": "48x48",
