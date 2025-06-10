@@ -1,1 +1,408 @@
-<!DOCTYPE html><html lang=""><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/png" href="/assets/favicon.png"><link rel="manifest" href="/manifest.webmanifest"><title>weewee-app</title><link href="/css/chunk-13cb5fcf.6e741011.css" rel="prefetch"><link href="/css/chunk-34db8442.d8e4c1fb.css" rel="prefetch"><link href="/css/chunk-3540f2c3.cbc24ca2.css" rel="prefetch"><link href="/css/chunk-6db8c218.376fef9f.css" rel="prefetch"><link href="/css/chunk-8b0f1c18.8abfc362.css" rel="prefetch"><link href="/css/chunk-a6ceb2ba.7fd45239.css" rel="prefetch"><link href="/css/chunk-f7277ba8.ea3c0925.css" rel="prefetch"><link href="/js/chunk-0f6e87cc.d8d452a3.js" rel="prefetch"><link href="/js/chunk-13cb5fcf.1ef36383.js" rel="prefetch"><link href="/js/chunk-1815a722.69017760.js" rel="prefetch"><link href="/js/chunk-1a277cf2.b5160d51.js" rel="prefetch"><link href="/js/chunk-2893bcf6.c0472e16.js" rel="prefetch"><link href="/js/chunk-2d207833.9f9f7f82.js" rel="prefetch"><link href="/js/chunk-2d216ecd.ab0fa09f.js" rel="prefetch"><link href="/js/chunk-2d229768.5381f858.js" rel="prefetch"><link href="/js/chunk-3012408a.cac0a76e.js" rel="prefetch"><link href="/js/chunk-3176e3b4.d774787a.js" rel="prefetch"><link href="/js/chunk-34db8442.4fc4b29e.js" rel="prefetch"><link href="/js/chunk-3540f2c3.b969d25a.js" rel="prefetch"><link href="/js/chunk-4a881a90.7c0e8b3f.js" rel="prefetch"><link href="/js/chunk-59866d88.2d69bd2f.js" rel="prefetch"><link href="/js/chunk-689c33d4.a36882e7.js" rel="prefetch"><link href="/js/chunk-6db8c218.82ded7a0.js" rel="prefetch"><link href="/js/chunk-83d27efa.be5ced77.js" rel="prefetch"><link href="/js/chunk-8b0f1c18.6efe87ee.js" rel="prefetch"><link href="/js/chunk-a6ceb2ba.f88d33cd.js" rel="prefetch"><link href="/js/chunk-f06cffb8.74261aed.js" rel="prefetch"><link href="/js/chunk-f7277ba8.01c1aa2b.js" rel="prefetch"><link href="/js/chunk-fb8933dc.d5df700a.js" rel="prefetch"><link href="/js/chunk-fee2dd9a.08bfbe7f.js" rel="prefetch"><link href="/css/app.f2f36f8f.css" rel="preload" as="style"><link href="/css/chunk-vendors.52b20959.css" rel="preload" as="style"><link href="/js/app.4bbe3382.js" rel="preload" as="script"><link href="/js/chunk-vendors.b0ed22e9.js" rel="preload" as="script"><link href="/css/chunk-vendors.52b20959.css" rel="stylesheet"><link href="/css/app.f2f36f8f.css" rel="stylesheet"></head><body><noscript><strong>We're sorry but weewee-app doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app"><div style="text-align: center"><img src="/assets/loading.gif"><br>Page loading ...</div></div><script src="/js/chunk-vendors.b0ed22e9.js"></script><script src="/js/app.4bbe3382.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jeu de Vocabulaire Français</title>
+    <!-- Bootstrap 5 CSS -->
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+        rel="stylesheet"
+    />
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .game-container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+        
+        .definition-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .definition-box:hover {
+            transform: translateY(-2px);
+        }
+        
+        .stats-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .incorrect-list {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .feedback-correct {
+            color: #28a745;
+            font-weight: bold;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .feedback-incorrect {
+            color: #dc3545;
+            font-weight: bold;
+            animation: shake 0.5s ease;
+        }
+        
+        .btn-modern {
+            border-radius: 25px;
+            padding: 10px 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-modern:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .form-control-modern {
+            border-radius: 25px;
+            border: 2px solid #e9ecef;
+            padding: 12px 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control-modern:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+        
+        .progress-modern {
+            height: 8px;
+            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .streak-indicator {
+            display: inline-block;
+            padding: 5px 15px;
+            background: linear-gradient(45deg, #ff6b6b, #ffa726);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-left: 10px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        .word-animation {
+            animation: slideIn 0.5s ease;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container game-container">
+        <div class="text-center mb-4">
+            <h1 class="text-white mb-3">🎯 Jeu de Vocabulaire Français</h1>
+            <p class="text-white-50">Devinez le mot à partir de sa définition</p>
+        </div>
+        
+        <div class="definition-box mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 class="mb-0">📚 Définition :</h3>
+                <div>
+                    <span class="badge bg-primary">Mot #<span id="word-number">1</span></span>
+                    <span id="streak-badge" class="streak-indicator d-none">🔥 Série: <span id="streak-value">0</span></span>
+                </div>
+            </div>
+            
+            <div class="word-animation">
+                <p id="definition" class="fs-5 mb-4 text-primary"></p>
+            </div>
+            
+            <div class="input-group mb-3">
+                <input
+                    type="text"
+                    id="user-input"
+                    class="form-control form-control-modern"
+                    placeholder="Entrez votre réponse..."
+                    aria-label="Mot"
+                />
+                <button class="btn btn-primary btn-modern" type="button" id="submit-btn">
+                    ✓ Valider
+                </button>
+            </div>
+            
+            <div class="d-flex gap-2 mb-3">
+                <button class="btn btn-warning btn-modern" type="button" id="show-answer-btn">
+                    💡 Montrer la réponse
+                </button>
+                <button class="btn btn-info btn-modern" type="button" id="skip-btn">
+                    ⏭️ Passer
+                </button>
+                <button class="btn btn-secondary btn-modern" type="button" id="reset-btn">
+                    🔄 Recommencer
+                </button>
+            </div>
+            
+            <div id="feedback" class="mt-3 fs-5"></div>
+            
+            <div class="progress progress-modern mt-3">
+                <div id="progress-bar" class="progress-bar bg-success" role="progressbar" style="width: 0%"></div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <div class="card stats-card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">📊 Statistiques</h5>
+                        <div class="row">
+                            <div class="col-4">
+                                <h3 class="text-success" id="score-value">0</h3>
+                                <small>Correct</small>
+                            </div>
+                            <div class="col-4">
+                                <h3 class="text-danger" id="incorrect-count">0</h3>
+                                <small>Incorrect</small>
+                            </div>
+                            <div class="col-4">
+                                <h3 class="text-info" id="accuracy-rate">0%</h3>
+                                <small>Précision</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 mb-3">
+                <div class="card stats-card">
+                    <div class="card-body">
+                        <h5 class="card-title">❌ Mots manqués :</h5>
+                        <div id="incorrect-words" class="incorrect-list">
+                            <p class="text-muted mb-0">Aucun mot manqué pour le moment</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+
+    <script src="french-words-dico.js"></script>
+    <script>
+        // Dictionnaire de mots français avec définitions
+
+        let currentWord = null;
+        let score = 0;
+        let incorrectCount = 0;
+        let currentStreak = 0;
+        let bestStreak = 0;
+        let wordNumber = 1;
+        const usedWords = new Set();
+        const incorrectWords = [];
+
+        function getRandomWord() {
+            const availableWords = vocabularyData.filter(
+                (word) => !usedWords.has(word.mot)
+            );
+            
+            if (availableWords.length === 0) {
+                showCompletionMessage();
+                return null;
+            }
+            
+            return availableWords[Math.floor(Math.random() * availableWords.length)];
+        }
+
+        function displayNewWord() {
+            currentWord = getRandomWord();
+            if (!currentWord) return;
+            
+            document.getElementById("definition").textContent = currentWord.definition;
+            document.getElementById("user-input").value = "";
+            document.getElementById("feedback").textContent = "";
+            document.getElementById("word-number").textContent = wordNumber;
+            document.getElementById("user-input").focus();
+            
+            // Animation pour la nouvelle définition
+            const definitionEl = document.getElementById("definition").parentNode;
+            definitionEl.classList.remove("word-animation");
+            setTimeout(() => definitionEl.classList.add("word-animation"), 10);
+        }
+
+        function updateStats() {
+            document.getElementById("score-value").textContent = score;
+            document.getElementById("incorrect-count").textContent = incorrectCount;
+            
+            const totalAnswers = score + incorrectCount;
+            const accuracy = totalAnswers > 0 ? Math.round((score / totalAnswers) * 100) : 0;
+            document.getElementById("accuracy-rate").textContent = accuracy + "%";
+            
+            // Mise à jour de la barre de progression
+            const progress = (usedWords.size / vocabularyData.length) * 100;
+            document.getElementById("progress-bar").style.width = progress + "%";
+            
+            // Mise à jour du streak
+            const streakBadge = document.getElementById("streak-badge");
+            if (currentStreak > 0) {
+                streakBadge.classList.remove("d-none");
+                document.getElementById("streak-value").textContent = currentStreak;
+            } else {
+                streakBadge.classList.add("d-none");
+            }
+        }
+
+        function addIncorrectWord(word, definition, userAnswer) {
+            const incorrectList = document.getElementById("incorrect-words");
+            
+            if (incorrectWords.length === 0) {
+                incorrectList.innerHTML = "";
+            }
+            
+            const wordItem = document.createElement("div");
+            wordItem.className = "border-bottom pb-2 mb-2";
+            wordItem.innerHTML = `
+                <strong>${word}</strong> <br>
+                <small class="text-muted">${definition}</small><br>
+                <small class="text-danger">Votre réponse: "${userAnswer}"</small>
+            `;
+            
+            incorrectList.appendChild(wordItem);
+            incorrectWords.push({ word, definition, userAnswer });
+        }
+
+        function showFeedback(message, isCorrect) {
+            const feedback = document.getElementById("feedback");
+            feedback.textContent = message;
+            feedback.className = isCorrect ? "feedback-correct mt-3 fs-5" : "feedback-incorrect mt-3 fs-5";
+        }
+
+        function checkAnswer() {
+            const userAnswer = document.getElementById("user-input").value.trim().toLowerCase();
+            const correctAnswer = currentWord.mot.toLowerCase();
+            
+            if (userAnswer === correctAnswer) {
+                score++;
+                currentStreak++;
+                if (currentStreak > bestStreak) bestStreak = currentStreak;
+                usedWords.add(currentWord.mot);
+                wordNumber++;
+                
+                showFeedback("🎉 Excellent ! Bonne réponse !", true);
+                
+                setTimeout(() => {
+                    updateStats();
+                    displayNewWord();
+                }, 1500);
+            } else {
+                incorrectCount++;
+                currentStreak = 0;
+                usedWords.add(currentWord.mot);
+                
+                showFeedback(`❌ Incorrect ! La réponse était : "${currentWord.mot}"`, false);
+                addIncorrectWord(currentWord.mot, currentWord.definition, userAnswer);
+                
+                setTimeout(() => {
+                    wordNumber++;
+                    updateStats();
+                    displayNewWord();
+                }, 3000);
+            }
+        }
+
+        function showAnswer() {
+            showFeedback(`💡 La réponse est : "${currentWord.mot}"`, false);
+            document.getElementById("show-answer-btn").style.display = "none";
+            
+            setTimeout(() => {
+                incorrectCount++;
+                currentStreak = 0;
+                usedWords.add(currentWord.mot);
+                addIncorrectWord(currentWord.mot, currentWord.definition, "Réponse affichée");
+                wordNumber++;
+                updateStats();
+                displayNewWord();
+                document.getElementById("show-answer-btn").style.display = "block";
+            }, 2000);
+        }
+
+        function skipWord() {
+            usedWords.add(currentWord.mot);
+            wordNumber++;
+            displayNewWord();
+        }
+
+        function resetGame() {
+            if (confirm("Êtes-vous sûr de vouloir recommencer le jeu ?")) {
+                score = 0;
+                incorrectCount = 0;
+                currentStreak = 0;
+                wordNumber = 1;
+                usedWords.clear();
+                incorrectWords.length = 0;
+                
+                document.getElementById("incorrect-words").innerHTML = 
+                    '<p class="text-muted mb-0">Aucun mot manqué pour le moment</p>';
+                
+                updateStats();
+                displayNewWord();
+            }
+        }
+
+        function showCompletionMessage() {
+            const accuracy = Math.round((score / (score + incorrectCount)) * 100);
+            document.getElementById("definition").innerHTML = `
+                <div class="text-center">
+                    <h3>🎊 Félicitations !</h3>
+                    <p>Vous avez terminé tous les mots du dictionnaire !</p>
+                    <p><strong>Score final :</strong> ${score}/${vocabularyData.length}</p>
+                    <p><strong>Précision :</strong> ${accuracy}%</p>
+                    <p><strong>Meilleure série :</strong> ${bestStreak}</p>
+                </div>
+            `;
+            document.getElementById("user-input").style.display = "none";
+            document.getElementById("submit-btn").style.display = "none";
+        }
+
+        // Event listeners
+        document.getElementById("submit-btn").addEventListener("click", checkAnswer);
+        document.getElementById("show-answer-btn").addEventListener("click", showAnswer);
+        document.getElementById("skip-btn").addEventListener("click", skipWord);
+        document.getElementById("reset-btn").addEventListener("click", resetGame);
+
+        document.getElementById("user-input").addEventListener("keypress", function(e) {
+            if (e.key === "Enter") {
+                checkAnswer();
+            }
+        });
+
+        // Initialiser le jeu
+        updateStats();
+        displayNewWord();
+    </script>
+</body>
+</html>
